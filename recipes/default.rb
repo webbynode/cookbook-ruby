@@ -7,22 +7,24 @@
 # All rights reserved - Do Not Redistribute
 #
 
-case node[:ruby][:install_method]
-when 'source'
-when 'package'
-  case node[:platform]
-  when 'ubuntu', 'debian'
-    apt_repository "hellobits" do
-      uri "http://apt.hellobits.com/"
-      repo_name "hellobits"
-      distribution "precise"
-      components ["main"]
-      key "http://apt.hellobits.com/hellobits.key"
-      action :add
-    end
-  end
-  package 'ruby-stable'
+# case node[:ruby][:install_method]
+# when 'source'
+# when 'package'
+#   case node[:platform]
+#   when 'ubuntu', 'debian'
+#   end
+# end
+
+apt_repository "hellobits" do
+  uri "http://apt.hellobits.com/"
+  repo_name "hellobits"
+  distribution "precise"
+  components ["main"]
+  key "http://apt.hellobits.com/hellobits.key"
+  action :add
 end
+
+package 'ruby-stable'
 
 script "update rubygems" do
   interpreter "bash"
